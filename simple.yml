@@ -1,0 +1,11 @@
+---
+- name: Create a Linux user
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create user hari
+      user:
+        name: hari
+        state: present
+        create_home: yes
