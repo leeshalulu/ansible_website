@@ -1,0 +1,7 @@
+
+---
+page_title: "My Ansible Website"
+heading: "Welcome to Ansible"
+description: "This page is deployed using Ansible Jinja2 template."
+server_name: "webserver01"
+

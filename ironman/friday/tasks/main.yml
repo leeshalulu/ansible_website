@@ -1,0 +1,16 @@
+---
+- name: install apache2 
+  apt: 
+    name: httpd
+    state: present
+- name: start and enable apache2
+  service: 
+    name: httpd
+    state: started
+    enable: true
+- name: configure website
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart httpd
+

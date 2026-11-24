@@ -1,0 +1,7 @@
+---
+- name: install and confidure apache2
+  hosts: all
+  become: true
+  roles:
+     - friday
+
