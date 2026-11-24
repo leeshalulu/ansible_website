@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ server_title }}</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 40px; background: #eef2f5; color: #222; }
+        .card { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 620px; }
+        h1 { color: #1a73e8; margin-top: 0; }
+        .tag { display: inline-block; padding: 4px 10px; border-radius: 4px; background: #e8f0fe; color: #1967d2; font-weight: 600; font-size: 0.85em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        td { padding: 10px 4px; border-bottom: 1px solid #e0e0e0; }
+        td.label { font-weight: 600; width: 45%; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>{{ server_title }}</h1>
+        <span class="tag">{{ environment_type }}</span>
+        <p>Maintained by: <strong>{{ owner_name }}</strong></p>
+        
+        <table>
+            <tr>
+                <td class="label">Host Node:</td>
+                <td>{{ ansible_facts['nodename'] }}</td>
+            </tr>
+            <tr>
+                <td class="label">Operating System:</td>
+                <td>{{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}</td>
+            </tr>
+            <tr>
+                <td class="label">OS Family:</td>
+                <td>{{ ansible_facts['os_family'] }}</td>
+            </tr>
+            <tr>
+                <td class="label">Web Root Directory:</td>
+                <td><code>{{ nginx_web_root }}</code></td>
+            </tr>
+            <tr>
+                <td class="label">Internal IP:</td>
+                <td>{{ ansible_facts['default_ipv4']['address'] | default(ansible_host) }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

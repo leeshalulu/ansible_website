@@ -1,0 +1,47 @@
+---
+- name: Load OS-specific variables
+  ansible.builtin.include_vars: "{{ ansible_facts['os_family'] }}.yml"
+
+- name: Install Nginx package
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Ensure web root directory exists
+  ansible.builtin.file:
+    path: "{{ nginx_web_root }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Deploy custom index.html template
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ nginx_web_root }}/index.html"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload Nginx
+
+- name: Allow HTTP in firewalld (Fedora / RedHat)
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+  when: ansible_facts['os_family'] == 'RedHat'
+  ignore_errors: true
+
+- name: Allow HTTP in UFW (Lubuntu / Debian)
+  community.general.ufw:
+    rule: allow
+    name: "Nginx HTTP"
+  when: ansible_facts['os_family'] == 'Debian'
+  ignore_errors: true
+
+- name: Ensure Nginx is enabled and running
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true

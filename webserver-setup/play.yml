@@ -1,0 +1,6 @@
+---
+- name: Deploy and manage Nginx webservers
+  hosts: webservers
+  become: true
+  roles:
+    - role: nginx

@@ -1,0 +1,2 @@
+---
+nginx_web_root: "/usr/share/nginx/html"
