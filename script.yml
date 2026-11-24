@@ -1,0 +1,13 @@
+---
+- name: create a user
+  hosts: all
+  becomes: yes
+
+ tasks:
+   - name: create user alen
+     user:
+       name: alen
+       uid: 3306
+       home: /home/alen
+       shell: /bin/bash
+       state: present  
