@@ -27,4 +27,16 @@
         state: started
         enabled: true
          
+- name: Create Linux User
+  hosts: all
+  become: yes
 
+  tasks:
+    - name: Create user nandana
+      ansible.builtin.user:
+        name: nandana
+        uid: 2001
+        home: /home/nandana
+        shell: /bin/bash
+        create_home: yes
+        state: present
