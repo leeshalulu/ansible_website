@@ -2,7 +2,6 @@
 - name: Configure Nginx Web Server
   hosts: webservers
   become: true
-
   vars:
     http_port: 80
     server_domain: example.com
@@ -27,9 +26,5 @@
         name: nginx
         state: started
         enabled: true
+         
 
-  handlers:
-    - name: Reload Nginx
-      ansible.builtin.service:
-        name: nginx
-        state: reloaded
